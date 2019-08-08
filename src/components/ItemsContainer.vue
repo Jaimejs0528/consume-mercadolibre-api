@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="items-ctn">
     <span v-if="isLoading">Loading...</span>
     <span v-if="error">{{error}}</span>
-    <div v-if="!isLoading" v-for="res in results">
-      <Item v-bind:key="res.id" v-bind:thumbnail="res.thumbnail" v-bind:price="res.price" v-bind:title="res.title"></Item>
-    </div>
+    <template v-if="!isLoading" v-for="res in results">
+      <Item v-bind:key="res.id"
+      v-bind:thumbnail="res.thumbnail"
+      v-bind:price="res.price"
+      v-bind:title="res.title"
+      v-bind:sellerID="res.seller.id"></Item>
+    </template>
   </div>
 </template>
 
@@ -54,6 +58,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  .items-ctn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 </style>
