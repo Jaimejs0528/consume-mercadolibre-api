@@ -33,6 +33,10 @@ export default {
 
 <style lang="scss">
 header{
+  position: sticky;
+  z-index: 8;
+  min-height: 110px;
+  top: 0;
   background: #f76707;
   color: #343a40;
 }

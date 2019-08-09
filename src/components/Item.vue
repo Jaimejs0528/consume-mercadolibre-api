@@ -1,5 +1,8 @@
 <template>
-  <div class="item-ctn">
+  <div v-on:mousedown="hasPressed"
+    v-on:mouseup="pressReleased"
+    v-on:mouseout="pressReleased"
+    class="item-ctn">
     <img v-bind:alt="title" class="thumbnail" v-bind:src='thumbnail'>
     <h2>{{title}}</h2>
     <span>{{seller}}</span>
@@ -38,7 +41,16 @@ export default {
     const QUERY = '?attributes=nickname'
     this.$http.get(`${BASE_URL}${QUERY}`)
       .then(response => this.seller=response.body.nickname || "Seller not found")
-      .catch(error => this.seller = "Error geting seller")
+      .catch(error => this.seller = "Error getting seller")
+  },
+  methods: {
+    hasPressed(){
+      this.$emit('hasPressed',this.$vnode.key)
+      this.$el.classList.add('item-clicked');
+    },
+    pressReleased(){
+      this.$el.classList.remove('item-clicked');
+    }
   }
 }
 </script>
@@ -47,7 +59,7 @@ export default {
 .item-ctn{
   opacity: .8;
   transform: scale(0.9);
-  transition: all 0.35s;
+  transition: all 0.15s;
   cursor: pointer;
   background: #fff;
   border: 2px solid #f76707;
@@ -79,10 +91,13 @@ export default {
   }
 
   &:hover{
-    transform: scale(1);
     box-shadow: #ffc078 0 0 16px 5px;
     opacity: 1;
   }
+}
+
+.item-clicked{
+  transform: scale(1);
 }
 
 .thumbnail {
