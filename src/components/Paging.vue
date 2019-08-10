@@ -39,7 +39,7 @@ export default {
     user-select: none;
     color: #2c2421;
     outline: none;
-    background: #ea4d00;
+    background: #ff8700;
   }
 
   @mixin focus{
@@ -63,18 +63,22 @@ export default {
     width: 95%;
     transform: translate(-50%,-50%);
 
+    span{
+      padding: 0.3rem 1.4rem;
+      border: 1px solid #2c2421;
+      background: #fff; 
+    }
+
     button{
       @extend %button;
       @include focus;
 
       &.right {
         padding: 0.2rem 0.8rem 0.2rem 0.2rem;
-        margin-left: 1rem;
         border-radius: 0 50% 50% 0;
       }
       &.left {
         padding: 0.2rem 0.2rem 0.2rem 0.8rem;
-        margin-right: 1rem;
         border-radius: 50% 0 0 50%;
       }
     }

@@ -4,6 +4,8 @@ export const getDiscount = (currentPrice, originalPrice) => {
   return Math.floor(100 - currentPrice * 100 / temporal);
 };
 
+export const int2Currency = (number) => Intl.NumberFormat().format(number)
+
 export const getLocation = (locationObject) => {
   const city = locationObject.city.name || '';
   const country = locationObject.country.name || '';
@@ -17,4 +19,5 @@ export default {
   getDiscount,
   getLocation,
   getTotalPages,
+  int2Currency,
 };

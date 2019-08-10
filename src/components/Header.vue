@@ -127,7 +127,7 @@ a{
 input[type="search"]{
   @include focus;
 
-  background: url(/img/search-solid.6e20df35.svg) no-repeat 97% 50% #faf9f7;
+  background: url(/search-solid.svg) no-repeat 97% 50% #faf9f7;
   background-size: 10%;
   padding: .5rem 2.3rem .5rem .5rem;
   font-size: 1.1rem;
