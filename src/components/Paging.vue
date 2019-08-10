@@ -60,7 +60,7 @@ export default {
     position: fixed;
     top:90%;
     left: 50%;
-    width: 70%;
+    width: 95%;
     transform: translate(-50%,-50%);
 
     button{

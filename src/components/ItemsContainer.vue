@@ -1,7 +1,7 @@
 <template>
   <div class="items-ctn">
-    <span v-if="isLoading">Loading...</span>
-    <span v-if="error">{{error}}</span>
+    <span class="info" v-if="isLoading">Loading...</span>
+    <span class="alert" v-if="error">{{error}}</span>
     <template v-if="!isLoading" v-for="res in results">
       <Item v-bind:key="`${res.id}-item`"
       v-bind:thumbnail="res.thumbnail"
@@ -87,6 +87,12 @@ export default {
 </script>
 
 <style lang="scss">
+%span{
+  position: fixed;
+  top: 50%;
+  transform: scale(2.2);
+}
+
   .items-ctn{
     position: relative;
     display: flex;
@@ -94,5 +100,15 @@ export default {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
+
+    .info{
+     @extend %span;
+     color: #17a2b8;
+    }
+
+    .alert{
+      @extend %span;
+      color: #dc3545;
+    }
   }
 </style>
