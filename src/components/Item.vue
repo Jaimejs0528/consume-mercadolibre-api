@@ -31,22 +31,22 @@ export default {
   },
   data() {
     return {
-      seller: "",
-    }
+      seller: '',
+    };
   },
-  mounted(){
-    const BASE_URL = `https://api.mercadolibre.com/users/${this.sellerID}`
-    const QUERY = '?attributes=nickname'
+  mounted() {
+    const BASE_URL = `https://api.mercadolibre.com/users/${this.sellerID}`;
+    const QUERY = '?attributes=nickname';
     this.$http.get(`${BASE_URL}${QUERY}`)
-      .then(response => this.seller=response.body.nickname || "Seller not found")
-      .catch(error => this.seller = "Error getting seller")
+      .then(response => this.seller = response.body.nickname || 'Seller not found')
+      .catch(error => this.seller = 'Error getting seller');
   },
   methods: {
-    hasPressed(){
-      this.$emit('hasPressed',this.$vnode.key)
+    hasPressed() {
+      this.$emit('hasPressed', this.$vnode.key);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">
@@ -56,14 +56,14 @@ export default {
   transition: all 0.15s;
   cursor: pointer;
   background: #fff;
-  border: 2px solid #f76707;
+  border: 2px solid #ea4d00;
   border-radius: 15px;
   margin: 0.5rem 1rem;
   padding: 0.8rem;
   display: grid;
   width: 25%;
   height: 30vh;
-  min-width: 300px;
+  min-width: 355px;
   min-height: 200px;
   max-height: 220px;
   grid-template-areas:  "img title"
@@ -71,7 +71,7 @@ export default {
                         "img seller";
   grid-auto-columns: 1fr 3fr;
   grid-template-rows: repeat(3,1fr);
-  
+
   h2{
     grid-area: title;
   }
@@ -85,7 +85,7 @@ export default {
   }
 
   &:hover{
-    box-shadow: #ffc078 0 0 16px 5px;
+    box-shadow: #ff8700 0 0 12px 2px;
     transform: scale(1);
     opacity: 1;
   }

@@ -10,7 +10,7 @@
 
 <script>
 import Header from './components/Header.vue';
-import ItemsContainer from './components/ItemsContainer.vue'
+import ItemsContainer from './components/ItemsContainer.vue';
 
 export default {
   name: 'app',
@@ -19,9 +19,9 @@ export default {
     ItemsContainer,
   },
   methods: {
-    loadData(search){
+    loadData(search) {
       this.$refs.itemsContainer.makeRequest(search);
-    }
+    },
   },
 };
 </script>
@@ -38,7 +38,7 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #fd7e14;
+    color: #ea4d00;
   }
 
   #overlay-parent {
@@ -48,7 +48,7 @@ export default {
     width: 100%;
     height: 100%;
     opacity: 0;
-    background: #3C3B44;
+    background: #2c2421;
     z-index: 7;
     pointer-events: none;
     transition: all 0.4s;
@@ -61,7 +61,7 @@ export default {
   main{
     padding: 1rem 0;
     position: relative;
-    background: #3C3B44;
+    background: #2c2421;
 
     &.opacity-effect {
       pointer-events: none;

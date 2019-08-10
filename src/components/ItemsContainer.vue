@@ -11,70 +11,88 @@
       v-on:hasPressed="showDetails"></Item>
       <ItemDetail v-bind:key="`${res.id}-detail`" ref="details"></ItemDetail>
     </template>
+    <Paging ref="paging" v-on:nextPage="makeRequestPaging" v-on:previousPage="makeRequestPaging"></Paging>
   </div>
 </template>
 
 <script>
-import Item from './Item.vue'
+import Item from './Item.vue';
 import ItemDetail from './ItemDetail.vue';
+import Paging from './Paging.vue'
+import { getTotalPages } from '../utils/tools.js';
+
 export default {
   name: 'ItemsContainer',
-  components:{
+  components: {
     Item,
     ItemDetail,
+    Paging,
   },
   mounted() {
-    this.makeRequest("");
+    this.makeRequest('');
   },
   data() {
     return {
       error: null,
       isLoading: true,
-      paging:null,
-      results:null,
-      offset: 0
-    }
+      paging: null,
+      results: null,
+      search: "",
+      offset: 0,
+    };
   },
   methods: {
     makeRequest(search) {
       this.isLoading = true;
       this.error = null;
+      this.search = search;
       const BASE_URL = 'https://api.mercadolibre.com/sites/MCO/search';
-      const QUERY = `?q=${search}&category=MCO1055&offset=${this.offset}&limit=20&attributes=paging,results`
+      const QUERY = `?q=${search}&category=MCO1055&offset=${this.offset}&limit=24&attributes=paging,results`;
       this.$http.get(`${BASE_URL}${QUERY}`)
-        .then(response => {
-          if (response.status !== 200){
-            this.error = `${e.status}: ${e.body.error}`
+        .then((response) => {
+          if (response.status !== 200) {
+            this.error = `${e.status}: ${e.body.error}`;
             return;
           }
           this.paging = response.body.paging;
-          this.results = response.body.results;
-          if (this.results.length === 0){
-            this.error = "Nothing to show =("
+          this.$refs.paging.totalPages = getTotalPages(this.paging);
+          if (this.search !== search) {
+            this.$refs.paging.currentPage = 1;
           }
-          this.isLoading=false;
-        }).catch(e => {
-          this.isLoading=false;
-          this.error = e.status && `${e.status}: ${e.body.error}` || e
+          this.$refs.paging.currentPage = this.$refs.paging.currentPage < this.$refs.paging.totalPages && this.$refs.paging.currentPage || 1;
+          this.offset = this.$refs.paging.currentPage;
+          this.results = response.body.results;
+          if (this.results.length === 0) {
+            this.error = 'Nothing to show =(';
+          }
+          this.isLoading = false;
+        }).catch((e) => {
+          this.isLoading = false;
+          this.error = e.status && `${e.status}: ${e.body.error}` || e;
         });
+        setTimeout(()=> this.$refs.paging.active = false, 200);
     },
-
-    showDetails(key){
-      const itemKey = key.replace('-item','')
-      const itemDetail = this.$refs.details.filter(e => e.$vnode.key.match(itemKey))[0]
-      const others = this.$refs.details.filter(e => !e.$vnode.key.match(itemKey))
-      others.forEach(e => e.isShowing=false);
-      itemDetail.toggle()
+    showDetails(key) {
+      const itemKey = key.replace('-item', '');
+      const itemDetail = this.$refs.details.filter(e => e.$vnode.key.match(itemKey))[0];
+      const others = this.$refs.details.filter(e => !e.$vnode.key.match(itemKey));
+      others.forEach(e => e.isShowing = false);
+      itemDetail.toggle();
+    },
+    makeRequestPaging(){
+      this.makeRequest(this.search);
     }
   },
-}
+};
 </script>
 
 <style lang="scss">
   .items-ctn{
+    position: relative;
     display: flex;
     min-height: calc(100vh - 110px);
     flex-wrap: wrap;
+    align-items: flex-start;
     justify-content: space-around;
   }
 </style>
