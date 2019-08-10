@@ -6,8 +6,8 @@
     <div class="info-ctn">
       <h2>{{title}}</h2>
       <p>Price: 
-        <span style="text-decoration:line-through;" v-if="discount > 0">${{originalPrice}}</span>
-        ${{actualPrice}}
+        <span style="text-decoration:line-through;" v-if="discount > 0">${{int2CurrencyLocal(originalPrice)}}</span>
+        ${{int2CurrencyLocal(actualPrice)}}
         <i v-if="discount > 0">{{discount}} %</i>
       </p>
       <p>Available quantity: {{availableQuantity}}</p>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getDiscount, getLocation } from '../utils/tools.js';
+import { getDiscount, getLocation, int2Currency } from '../utils/tools.js';
 
 export default {
   name: 'ItemDetail',
@@ -66,6 +66,9 @@ export default {
       this.isShowing && mainContainer.classList.add('opacity-effect');
       !this.isShowing && mainContainer.classList.remove('opacity-effect');
     },
+    int2CurrencyLocal(number){
+      return int2Currency(number);
+    },
   },
 };
 </script>
@@ -96,7 +99,7 @@ export default {
     pointer-events: all;
     padding: 1rem;
     width: 50vw;
-    height: 60vh;
+    height: 68vh;
     animation: growing-effect 0.5s forwards ease-out;
     background: #ff8700;
     color: #2c2421;

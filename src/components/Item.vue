@@ -4,11 +4,13 @@
     <img v-bind:alt="title" class="thumbnail" v-bind:src='thumbnail'>
     <h2>{{title}}</h2>
     <span>{{seller}}</span>
-    <i>$ {{price}}</i>
+    <i>$ {{int2CurrencyLocal(price)}}</i>
   </div>
 </template>
 
 <script>
+import { int2Currency } from '../utils/tools.js'
+
 export default {
   name: 'Item',
   props: {
@@ -44,6 +46,9 @@ export default {
   methods: {
     hasPressed() {
       this.$emit('hasPressed', this.$vnode.key);
+    },
+    int2CurrencyLocal(number){
+      return int2Currency(number);
     },
   },
 };
