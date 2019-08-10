@@ -1,17 +1,18 @@
 <template>
   <div v-on:click="toggle" class="details-ctn" v-if="isShowing">
-    HI!{{title}}{{sellerLocation}}
+    <!-- <div v-for="pic in pictures">
+        <img v-bind:src="pic.url">
+    </div> -->
+    <h2>{{title}}</h2>
+    <img v-bind:src="picture.url" v-bind:alt="picture.id">
+    <p>Seller location: {{sellerLocation}}</p>
+    <p>Seller location: {{sellerLocation}}</p>
+    HI!
   </div>
 </template>
 
 <script>
-
-function getLocation(locationObject) {
-  const city = locationObject.city.name || ''
-  const country = locationObject.country.name || ''
-  const location = `${city}, ${country}`
-  return location === ''?  'No Location' : location
-}
+import { getDiscount, getLocation } from '../utils/tools.js';
 
 export default {
   name: 'ItemDetail',
@@ -25,7 +26,7 @@ export default {
       freeShipping: false,
       acceptsMercadoPago: false,
       condition: "",
-      pictures: null,
+      picture: null,
     }
   },
   mounted(){
@@ -37,6 +38,12 @@ export default {
       //console.log(response)
       const { title, price, original_price,seller_address, free_shipping,accepts_mercadopago,pictures, condition} = response.body;
       this.title = title;
+      this.picture = pictures.length > 0 && pictures[0];
+      this.freeShipping = free_shipping;
+      this.acceptsMercadoPago = accepts_mercadopago;
+      this.originalPrice = original_price;
+      this.actualPrice = price;
+      console.log(getDiscount(this.actualPrice, this.originalPrice));
       this.sellerLocation = getLocation(seller_address)
     }).catch(e => console.log(e))
   },

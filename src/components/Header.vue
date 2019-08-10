@@ -1,7 +1,8 @@
 <template>
   <header>
     <h1>{{title}}</h1>
-    <font-awesome-icon :icon="['fab','fa-github']"><a href="https://github.com/Jaimejs0528/consume-mercadolibre-api" target="_blank"></a></Font-awesome-icon>
+    <a href="https://github.com/Jaimejs0528/consume-mercadolibre-api" target="_blank"><font-awesome-icon :icon="['fab','github']"></Font-awesome-icon></a>
+    <a href="https://co.linkedin.com/in/jaime-jimenez-serrano" target="_blank"><font-awesome-icon :icon="['fab','linkedin']"></Font-awesome-icon></a>
     <input type="search" placeholder="Search..." v-model="search" v-on:keyup="makeSearch">
     <button v-on:click="emitEvent" type="button">Search</button>
   </header>

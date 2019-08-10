@@ -1,7 +1,5 @@
 <template>
   <div v-on:mousedown="hasPressed"
-    v-on:mouseup="pressReleased"
-    v-on:mouseout="pressReleased"
     class="item-ctn">
     <img v-bind:alt="title" class="thumbnail" v-bind:src='thumbnail'>
     <h2>{{title}}</h2>
@@ -46,11 +44,7 @@ export default {
   methods: {
     hasPressed(){
       this.$emit('hasPressed',this.$vnode.key)
-      this.$el.classList.add('item-clicked');
     },
-    pressReleased(){
-      this.$el.classList.remove('item-clicked');
-    }
   }
 }
 </script>
@@ -92,12 +86,9 @@ export default {
 
   &:hover{
     box-shadow: #ffc078 0 0 16px 5px;
+    transform: scale(1);
     opacity: 1;
   }
-}
-
-.item-clicked{
-  transform: scale(1);
 }
 
 .thumbnail {
